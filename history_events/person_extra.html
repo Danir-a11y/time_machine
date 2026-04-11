@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Человек</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Информация о человеке</h1>
+        <p class="subtitle">Биография и важные даты</p>
+    </header>
+
+    <!-- Поиск -->
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Поиск другого человека">
+        <button onclick="searchPerson()">Найти</button>
+    </div>
+
+    <!-- Карточка человека -->
+    <div class="card person-page">
+        <div id="personContent"></div>
+    </div>
+
+    <!-- Даты -->
+    <div class="card">
+        <h2>Даты</h2>
+        <ul id="randomDates"></ul>
+    </div>
+
+    <div class="controls">
+        <button onclick="goHome()">← На главную</button>
+    </div>
+</div>
+
+<script src="person_extra.js"></script>
+
+</body>
+</html>

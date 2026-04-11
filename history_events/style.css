@@ -1,0 +1,877 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #d6b98c 0%, #c8a97e 100%);
+  --secondary-gradient: linear-gradient(135deg, #e6ccb2 0%, #ddb892 100%);
+  --accent-gradient: linear-gradient(135deg, #c8a97e 0%, #a47148 100%);
+
+  --dark-bg: #f5efe6;
+  --card-bg: rgba(255, 248, 240, 0.95);
+
+  --text-primary: #4b3832;
+  --text-secondary: #7a5c4d;
+
+  --shadow: 0 15px 35px rgba(120, 90, 60, 0.15);
+  --shadow-hover: 0 25px 50px rgba(120, 90, 60, 0.25);
+
+  --radius: 20px;
+  --transition: all 0.3s ease;
+}
+
+
+ body {
+   font-family: 'Inter', sans-serif;
+   background:
+     linear-gradient(rgba(245,239,230,0.85), rgba(245,239,230,0.85)),
+     url("assets/background.jpg") center/cover no-repeat fixed;
+
+   color: var(--text-primary);
+   min-height: 100vh;
+ }
+
+
+
+@keyframes gradient {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Заголовок */
+header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.8s ease-out;
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 300;
+}
+
+/* Панель управления */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  animation: slideUp 0.6s ease-out 0.2s both;
+}
+
+.controls input {
+  padding: 18px 25px;
+  border-radius: 15px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  transition: var(--transition);
+  min-width: 250px;
+}
+
+.controls input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+}
+
+.controls input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controls button {
+  padding: 18px 35px;
+  border-radius: 15px;
+  border: none;
+  background: var(--primary-gradient);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+   background: var(--accent-gradient);
+   color: #fffaf3;
+   box-shadow: var(--shadow);
+}
+
+.controls button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.controls button:active {
+  transform: translateY(-1px);
+}
+
+.controls button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.controls button:hover:before {
+  left: 100%;
+}
+
+/* Карточки */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 35px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  animation: fadeIn 0.6s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--primary-gradient);
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: var(--text-primary);
+}
+
+/* Список событий */
+.list .event {
+  padding: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.list .event:hover {
+  background: linear-gradient(135deg, #f6f9ff 0%, #f1f5ff 100%);
+  transform: translateX(10px);
+}
+
+.event-year {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: inline-block;
+  padding: 6px 15px;
+  background: var(--accent-gradient);
+  color: white;
+  border-radius: 50px;
+}
+
+.categories {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 15px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Фильмы */
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+.movie {
+  text-align: center;
+  transition: var(--transition);
+  animation: scaleIn 0.5s ease-out;
+}
+
+.movie:hover {
+  transform: scale(1.05);
+}
+
+.movie img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.movie:hover img {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.movie-title {
+  margin-top: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+/* Люди */
+.people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.person {
+  text-align: center;
+  transition: var(--transition);
+  animation: scaleIn 0.5s ease-out;
+}
+
+.person:hover {
+  transform: translateY(-8px);
+}
+
+.person img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.person-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+
+.person-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.date-input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #f5f5f5;
+  font-size: 16px;
+}
+
+/* Загрузка */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  margin: 30px 0;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+.expand-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#searchBlock,
+#filterBlock {
+  display: flex;
+  gap: 10px;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(102, 126, 234, 0.1);
+  border-left-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.loading p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .controls input,
+  .controls button {
+    width: 100%;
+  }
+
+  .movies,
+  .people {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .card {
+    padding: 25px 20px;
+  }
+}
+
+
+
+/* Стили для статусов */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.error {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0;
+  border-left: 4px solid #ef4444;
+}
+.section-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Карточка кликабельная */
+.movie.clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+/* Обёртка изображения */
+.movie-image-wrapper {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Затемнение */
+.movie-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+/* Текст поверх */
+.movie-overlay-text {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+/* Анимация при наведении */
+.movie.clickable:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie.clickable:hover .movie-overlay-text {
+  transform: translateY(0);
+}
+
+/* Плавное увеличение */
+.movie.clickable:hover {
+  transform: scale(1.05);
+}
+/* Карточка кликабельная */
+.person.clickable {
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.person.clickable:hover {
+  transform: translateY(-5px);
+}
+
+/* Обёртка изображения */
+.person-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Затемнение */
+.person-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+/* Текст поверх */
+.person-overlay-text {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+/* Анимация при наведении */
+.person.clickable:hover .person-overlay {
+  opacity: 1;
+}
+
+.person.clickable:hover .person-overlay-text {
+  transform: translateY(0);
+}
+
+.person-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.person {
+  position: relative;      /* важно для абсолютного позиционирования hover */
+  overflow: hidden;        /* чтобы блок не вылазил за границы */
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.person img {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.person-link:hover .person {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.person-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* полупрозрачный чёрный фон */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* чтобы клик проходил по ссылке */
+  border-radius: 20px;
+}
+
+.person-link:hover .person-hover {
+  opacity: 1;
+}
+/* Контейнер карточки с изображением */
+.person-image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 150px; /* можно под свои размеры */
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Сама картинка */
+.person-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Полупрозрачный overlay */
+.person-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* полупрозрачный черный */
+  opacity: 0; /* изначально невидим */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+/* Текст внутри overlay */
+.person-overlay-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 10px;
+}
+
+/* Hover эффект: показываем overlay и слегка увеличиваем картинку */
+.person-image-wrapper:hover .person-overlay {
+  opacity: 1;
+}
+
+.person-image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* Опционально: курсор как pointer на весь блок */
+.person.clickable {
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  width: 150px; /* под картинку */
+}
+
+
+/* Контейнер изображения события */
+.event-image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.event-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* Overlay с hover */
+.event-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+.event-overlay-text {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.event-image-wrapper:hover .event-overlay {
+  opacity: 1;
+}
+
+.event-image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* Общие стили */
+.event-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  margin: 10px;
+  width: 220px;
+}
+
+.event {
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+}
+.event-year {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.event-description {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.event-extract {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 3px;
+}
+.categories {
+  font-size: 12px;
+  color: #888;
+}
+.event-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  margin: 10px;
+  width: 300px;
+}
+
+.event {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.event-link:hover .event {
+  transform: scale(1.03);
+}
+
+.event-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.event-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* сохраняем пропорции */
+  display: block;
+}
+
+.event-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* полупрозрачный черный */
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.event-link:hover .event-overlay {
+  opacity: 1;
+}
+
+.event-overlay-text {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 10px;
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 5px;
+}
+
+.event-description {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.person-page {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.person-image {
+  max-width: 200px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.person-description {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.wiki-link {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #4da6ff;
+}
+
+.person-actions {
+  margin-top: 8px;
+}
+
+.person-life-btn {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Страница человека */
+.person-page {
+  text-align: center;
+}
+
+/* Фото */
+.person-page img {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.person-page img:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Имя */
+.person-page h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Описание */
+.person-description {
+  margin: 15px auto;
+  max-width: 600px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Даты */
+#randomDates {
+  list-style: none;
+  padding: 0;
+}
+
+#randomDates li {
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.card {
+  margin-bottom: 50px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Машина Времени</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Машина Времени</h1>
+        <p class="subtitle">Выбери дату и листай события</p>
+    </header>
+
+    <div class="controls">
+        <input type="date" id="dateInput" />
+
+        <button id="loadBtn">
+            <img src="assets/icons/calendar-icon.png" class="btn-icon">
+            Отправиться в прошлое
+        </button>
+    </div>
+
+    <!-- 🔥 НОВОЕ: поиск -->
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Поиск человека">
+        <button onclick="searchPerson()">Найти</button>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <section class="card">
+        <h2>
+            <img src="assets/icons/history-icon.png" class="section-icon">
+            Исторические события
+        </h2>
+        <div id="events" class="list"></div>
+    </section>
+
+    <section class="card">
+        <h2>Рождения</h2>
+        <div id="births" class="people"></div>
+    </section>
+
+    <section class="card">
+        <h2>Смерти</h2>
+        <div id="deaths" class="people"></div>
+    </section>
+
+    <section class="card">
+        <h2>
+            <img src="assets/icons/movie.png" class="section-icon">
+            Фильмы
+        </h2>
+        <div id="movies" class="movies"></div>
+    </section>
+
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
