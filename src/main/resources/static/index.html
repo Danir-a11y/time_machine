@@ -11,6 +11,7 @@
     <header>
         <h1>Машина Времени</h1>
         <p class="subtitle">Выбери дату и листай события</p>
+        <img id="stylus_icon" src="assets/icons/stylus_icon.png" class="image">
     </header>
 
     <div class="controls">
@@ -18,7 +19,13 @@
         <button id="loadBtn">
             <img src="assets/icons/calendar-icon.png" class="btn-icon">
             Отправиться в прошлое
-        </button>    </div>
+        </button>
+    </div>
+
+    <div class="controls">
+        <input type="text" id="searchInput">
+        <button onclick="searchPerson()">Найти</button>
+    </div>
 
     <!-- Индикатор загрузки -->
     <div id="loading" class="loading" style="display: none;">
@@ -54,12 +61,19 @@
         <div id="movies" class="movies"></div>
     </section>
 
-    <form action="/register" method="post">
-        <input type="text" name="username" placeholder="логин">
-        <input type="password" name="password" placeholder="пароль">
-        <button type="submit">Регистрация</button>
-    </form>
+    <div id="userPanel" style="position:absolute; right:30px; top:30px;"></div>
 
+    <div id="authModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Требуется авторизация</h3>
+            <p>Эта функция доступна только после входа в аккаунт</p>
+
+            <div class="modal-actions">
+                <button onclick="closeModal()">Закрыть</button>
+                <button onclick="goAuth()">Войти</button>
+            </div>
+        </div>
+    </div>
 <script src="script.js" defer></script>
 </div>
 </body>

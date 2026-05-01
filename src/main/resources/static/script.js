@@ -133,7 +133,42 @@ function renderMovies(movies) {
 }
 
 function openPersonPage(name) {
-  window.location.href = `person.html?name=${encodeURIComponent(name)}`;
+  if (!isLoggedIn()) {
+    openModal();
+    return;
+  }
+
+  window.location.href = `person_extra.html?name=${encodeURIComponent(name)}`;
+}
+
+window.addEventListener("click", (e) => {
+  const modal = document.getElementById("authModal");
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+
+function searchPerson() {
+
+  if (!isLoggedIn()) {
+    openModal();
+    return;
+  } else {
+    const name = document.getElementById("searchInput").value;
+    if (!name) return;
+
+    window.location.href = `person_extra.html?name=${encodeURIComponent(name)}`;
+  }
+}
+
+function getCleanName(name) {
+  return name
+      .split("(")[0]
+      .replace(",", "")
+      .trim()
+      .split(" ")
+      .slice(0, 2)
+      .join(" ");
 }
 
 function renderBirths(births) {
@@ -152,22 +187,27 @@ function renderBirths(births) {
     const occupation = b.occupation || "—";
 
     birthsEl.innerHTML += `
-      <a href="${wikiUrl}" target="_blank" class="person-link">
-        <div class="person">
-          ${imgUrl ? `<div class="person-image-wrapper">
-                        <img src="${imgUrl}" alt="${name}" onerror="this.style.display='none'">
-                        <div class="person-overlay"><span class="person-overlay-text">🔗 Открыть на Википедии</span></div>
-                      </div>` : ""}
-          <div class="person-name">${name}</div>
-          <div class="person-actions">
-            <span class="person-life-btn"
-                  onclick="event.stopPropagation(); openPersonPage('${name}')">
-              📖
-            </span>
+      <div class="person">
+    
+        ${imgUrl ? `
+          <div class="person-link" onclick="handlePersonClick('${wikiUrl}', '${name}')">
+            <img src="${imgUrl}" alt="${name}" onerror="this.style.display='none'">
+            <div class="person-overlay">
+              <span class="person-overlay-text">Открыть на Википедии</span>
+            </div>
           </div>
+        ` : ''}
+    
+        <div class="person-name">${name}</div>
+    
+        <div class="person-actions">
+          <span class="person-life-btn"
+            onclick="openPersonPage(getCleanName('${name}'))">
+            😀
+          </span>
         </div>
-      </a>
-      
+    
+      </div>
     `;
   });
 }
@@ -188,7 +228,7 @@ function renderDeaths(deaths) {
     const cause = d.cause || "—";
 
     deathsEl.innerHTML += `
-      <a href="${wikiUrl}" target="_blank" class="person-link">
+      <div class="person-link" onclick="handlePersonClick('${wikiUrl}', '${name}')">
         <div class="person">
           ${imgUrl ? `<div class="person-image-wrapper">
                         <img src="${imgUrl}" alt="${name}" onerror="this.style.display='none'">
@@ -197,12 +237,101 @@ function renderDeaths(deaths) {
           <div class="person-name">${name}</div>
           <div class="person-actions">
             <span class="person-life-btn"
-                  onclick="event.stopPropagation(); openPersonPage('${name}')">
-              📖
+                  onclick="openPersonPage(getCleanName('${name}'))">
+              Подробнее...
             </span>
           </div>
         </div>
-      </a>
+      </div>
     `;
   });
+}
+
+function handlePersonClick(wikiUrl, name) {
+  if (!isLoggedIn()) {
+    openModal();
+    return;
+  }
+
+  window.open(wikiUrl, "_blank");
+}
+
+// =====================
+// USER PANEL (ТОЛЬКО ЭТО ИСПОЛЬЗУЕМ)
+// =====================
+
+const userPanel = document.getElementById("userPanel");
+
+// если вдруг элемента нет — не ломаем скрипт
+if (userPanel) {
+  renderUserPanel();
+}
+
+function renderUserPanel() {
+  const user = localStorage.getItem("user");
+
+  if (!user) {
+    userPanel.innerHTML = `
+            <button onclick="goAuth()" class="btn">
+                Войти / Регистрация
+            </button>
+        `;
+  } else {
+    userPanel.innerHTML = `
+            <div style="position: relative;">
+                <button onclick="toggleMenu()" class="btn">
+                    ${user}
+                </button>
+
+                <div id="dropdown" class="dropdown">
+                    <button onclick="goProfile()">Профиль</button>
+                    <button onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        `;
+  }
+}
+
+// =====================
+// ACTIONS
+// =====================
+
+function goAuth() {
+  window.location.href = "/api/register.html"; // ВАЖНО: БЕЗ /api
+}
+
+function goProfile() {
+  window.location.href = "/api/profile.html";
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  renderUserPanel(); // обновляем UI без перезагрузки
+}
+
+function toggleMenu() {
+  const menu = document.getElementById("dropdown");
+  if (!menu) return;
+
+  menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+}
+
+function openModal() {
+  const modal = document.getElementById("authModal");
+  if (!modal) {
+    console.error("Модалка не найдена");
+    return;
+  }
+  modal.classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("authModal").classList.add("hidden");
+}
+
+function isLoggedIn() {
+  const user = localStorage.getItem("user");
+  console.log("USER:", user); // ВАЖНО
+  return user !== null;
 }

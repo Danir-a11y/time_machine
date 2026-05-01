@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: historical-events-api
+
+# Внешние API (бесплатные, не требуют ключей)
+api:
+  historical-events: "https://byabbe.se/on-this-day/{month}/{day}/events.json"
+  music-releases: "https://api.discogs.com/database/search"  # Нужен ключ, но есть альтернативы
+  movies: "http://www.omdbapi.com/"  # Нужен ключ
+
+# Резервные API (работают без ключей)
+fallback:
+  events: "https://history.muffinlabs.com/date/{month}/{day}"
+  songs: "https://secondhandsongs.com/date/{yyyy}/{MM}/{dd}"  # Пример
+
+# Кастомные настройки
+app:
+  cache-duration-minutes: 60
+  max-results-per-category: 5

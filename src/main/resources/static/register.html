@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Машина времени</h1>
+        <p class="subtitle">Вход / Регистрация</p>
+        <img id="stylus_icon" src="assets/icons/stylus_icon.png" class="image">
+    </header>
+
+    <div class="card">
+        <h2 id="title">Регистрация</h2>
+
+        <form id="authForm" class="controls" action="api/register">
+            <input type="text" name="username" placeholder="Логин" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+
+            <button type="submit">Отправить</button>
+        </form>
+
+        <p class="subtitle" id="switchText" style="cursor:pointer; margin-top:10px;">
+            Уже есть аккаунт? Войти
+        </p>
+
+        <div id="message"></div>
+
+        <div style="text-align: center; margin-top: 20px;" class="controls">
+            <button onclick="goHome()" class="controls button">
+                ← В главное меню
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

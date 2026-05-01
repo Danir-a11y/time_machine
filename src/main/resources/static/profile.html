@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Профиль</h1>
+    </header>
+
+    <section class="card">
+        <h2>Информация</h2>
+        <p id="username"></p>
+        <p id="password"></p>
+    </section>
+
+    <section class="card">
+        <div class="controls">
+            <button onclick="goHome()">В главное меню</button>
+            <button onclick="logout()">Выйти</button>
+        </div>
+    </section>
+</div>
+
+<script>
+    const user = localStorage.getItem("user");
+
+    if (!user) {
+        window.location.href = "/api/register.html";
+    }
+
+    document.getElementById("username").innerText = "Имя: " + user;
+
+    function goHome() {
+        window.location.href = "/api/index.html";
+    }
+
+    function logout() {
+        localStorage.removeItem("user");
+        window.location.href = "/api/index.html";
+    }
+</script>
+
+</body>
+</html>
