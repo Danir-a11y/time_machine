@@ -49,6 +49,9 @@
 
 /* Заголовок */
 header {
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
   text-align: center;
   margin-bottom: 50px;
   padding: 40px;
@@ -58,10 +61,25 @@ header {
   animation: fadeIn 0.8s ease-out;
 }
 
+.title-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.image {
+  width: 150px;
+  height: 100px;
+  margin-left: 750px;
+  position: absolute;
+  right: 140px;      /* отступ справа */
+  top: 32%;
+  transform: translateY(-50%) rotate(10deg);
+}
+
 h1 {
   font-size: 3.5rem;
   font-weight: 800;
-  background: var(--primary-gradient);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,6 +101,8 @@ h1 {
   margin-bottom: 50px;
   animation: slideUp 0.6s ease-out 0.2s both;
 }
+
+
 
 .controls input {
   padding: 18px 25px;
@@ -875,3 +895,8 @@ button:disabled {
 .card {
   margin-bottom: 50px;
 }
+
+body {
+  background: linear-gradient(rgb(245,235,225), rgb(168,120,79));
+}
+/*(168,120,79), (245,235,225)*/

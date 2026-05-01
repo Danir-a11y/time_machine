@@ -52,8 +52,7 @@ async function load() {
 
     const data = await res.json();
 
-    allEvents = data.historicalEvents || [];
-    renderEvents(allEvents);
+    renderEvents(data.historicalEvents || []);
     renderMovies(data.movies || []);
     renderBirths(data.births || []);
     renderDeaths(data.deaths || []);
@@ -76,26 +75,6 @@ function renderEvents(events) {
     eventsEl.innerHTML = "<p>Событий нет</p>";
     return;
   }
-
-  const container = document.getElementById("events");
-  container.innerHTML = "";
-
-  if (events.length === 0) {
-    container.innerHTML = "<p>Событий нет</p>";
-    return;
-  }
-
-  events.forEach(event => {
-    const div = document.createElement("div");
-    div.className = "card";
-
-    div.innerHTML = `
-            <h3>${event.year}</h3>
-            <p>${event.text}</p>
-        `;
-
-    container.appendChild(div);
-  });
 
   events.forEach(e => {
     eventsEl.innerHTML += `
@@ -164,43 +143,14 @@ function searchPerson() {
   window.location.href = `person_extra.html?name=${encodeURIComponent(name)}`;
 }
 
-let allEvents = [];
-
-// function parseDate(str) {
-//   const parts = str.split(".");
-//
-//   if (parts.length !== 3) return null;
-//
-//   const day = Number(parts[0]);
-//   const month = Number(parts[1]);
-//   const year = Number(parts[2]);
-//
-//   return new Date(year, month - 1, day);
-// }
-
-function applyFilter() {
-  const startInput = document.getElementById("startDate").value;
-  const endInput = document.getElementById("endDate").value;
-
-  const startDate = new Date(startInput);
-  const endDate = new Date(endInput);
-
-  if (isNaN(startDate) || isNaN(endDate)) {
-    console.log("Ошибка даты");
-    return;
-  }
-
-  const startYear = startDate.getFullYear();
-  const endYear = endDate.getFullYear();
-
-  console.log("START:", startYear);
-  console.log("END:", endYear);
-
-  const filtered = allEvents.filter(event => {
-    return event.year >= startYear && event.year <= endYear;
-  });
-
-  renderEvents(filtered);
+function getCleanName(name) {
+  return name
+      .split("(")[0]
+      .replace(",", "")
+      .trim()
+      .split(" ")
+      .slice(0, 2)
+      .join(" ");
 }
 
 function renderBirths(births) {
@@ -219,22 +169,27 @@ function renderBirths(births) {
     const occupation = b.occupation || "—";
 
     birthsEl.innerHTML += `
-      <a href="${wikiUrl}" target="_blank" class="person-link">
-        <div class="person">
-          ${imgUrl ? `<div class="person-image-wrapper">
-                        <img src="${imgUrl}" alt="${name}" onerror="this.style.display='none'">
-                        <div class="person-overlay"><span class="person-overlay-text">🔗 Открыть на Википедии</span></div>
-                      </div>` : ""}
-          <div class="person-name">${name}</div>
-          <div class="person-actions">
-            <span class="person-life-btn"
-                  onclick="event.stopPropagation(); openPersonPage('${name}')">
-              📖
-            </span>
-          </div>
+      <div class="person">
+    
+        ${imgUrl ? `
+          <a href="${wikiUrl}" target="_blank" class="person-image-wrapper">
+            <img src="${imgUrl}" alt="${name}" onerror="this.style.display='none'">
+            <div class="person-overlay">
+              <span class="person-overlay-text">Открыть на Википедии</span>
+            </div>
+          </a>
+        ` : ''}
+    
+        <div class="person-name">${name}</div>
+    
+        <div class="person-actions">
+          <span class="person-life-btn"
+            onclick="openPersonPage(getCleanName('${name}'))">
+            😀
+          </span>
         </div>
-      </a>
-      
+    
+      </div>
     `;
   });
 }
@@ -264,8 +219,8 @@ function renderDeaths(deaths) {
           <div class="person-name">${name}</div>
           <div class="person-actions">
             <span class="person-life-btn"
-                  onclick="event.stopPropagation(); openPersonPage('${name}')">
-              📖
+                  onclick="openPersonPage(getCleanName('${name}'))">
+              Подробнее...
             </span>
           </div>
         </div>
