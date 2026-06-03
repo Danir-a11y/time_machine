@@ -3,6 +3,7 @@ package com.history.controller;
 import com.history.model.User;
 import com.history.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,20 +16,21 @@ public class AuthController {
     public String register(@RequestParam String username,
                            @RequestParam String password) {
 
-        User existingUser = userRepository.findByUsername(username);
-
-        if (existingUser != null) {
-            return "Данное имя уже занято!"; // специальный ответ
+        // Проверка через репозиторий
+        if (userRepository.existsByUsername(username)) {
+            return "Данное имя уже занято!";
         }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
+        User user = new User(username, password);
 
-        userRepository.save(user);
-
-        return "OK";
+        try {
+            userRepository.save(user);
+            return "OK";
+        } catch (DataIntegrityViolationException e) {
+            return "Ошибка: пользователь уже существует";
+        }
     }
+
     @PostMapping("/login")
     public String login(@RequestParam String username,
                         @RequestParam String password) {
