@@ -21,6 +21,10 @@ public class AuthController {
             return "Данное имя уже занято!"; // специальный ответ
         }
 
+        if (password.length() < 8) {
+            return "Пароль должен состоять минимум из 8 символов";
+        }
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);

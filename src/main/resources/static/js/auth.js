@@ -81,3 +81,4 @@ form.addEventListener("submit", async (e) => {
 function goHome() {
     window.location.href = "/api/index.html";
 }
+
