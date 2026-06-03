@@ -161,6 +161,25 @@ function searchPerson() {
   }
 }
 
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+// Показываем кнопку после прокрутки на 300px
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    scrollTopBtn.style.display = 'block';
+  } else {
+    scrollTopBtn.style.display = 'none';
+  }
+});
+
+// Плавная прокрутка вверх
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
 function getCleanName(name) {
   return name
       .split("(")[0]
