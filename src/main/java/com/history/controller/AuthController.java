@@ -23,6 +23,10 @@ public class AuthController {
 
         User user = new User(username, password);
 
+        if (password.length() < 8) {
+            return "Пароль должен содержать не менее 8 символов";
+        }
+
         try {
             userRepository.save(user);
             return "OK";
